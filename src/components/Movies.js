@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import axios from 'axios';
-import SearchForm from './SearchForm';
-import MovieList from './MovieList';
 
 class Movies extends Component {
   constructor() {
@@ -52,12 +50,12 @@ class Movies extends Component {
             <h4>
               <strong>Year:</strong> {movie.Year}
             </h4>
-            <h5>
+            <h4>
               <strong>Type:</strong> {movie.Type}
-            </h5>
-            <h5 className="d-none d-sm-block">
+            </h4>
+            <h4 className="d-none d-sm-block">
               <strong>IMDB ID:</strong> {movie.imdbID}
-            </h5>
+            </h4>
           </div>
           <button
             className="float-right"
@@ -70,13 +68,24 @@ class Movies extends Component {
     ));
     return (
       <div className="container">
-        <div className="main-header">
-          <h1 className="main-title">Movie Search</h1>
-          <SearchForm />
-        </div>
-        <div className="main-content">
-          <MovieList />
-        </div>
+        <input
+          className="form-control"
+          type="text"
+          placeholder="Invite Someone"
+          value={this.state.newName}
+          onKeyDown={this.handleChange.bind(this)}
+        />
+        <ReactCSSTransitionGroup
+          component="div"
+          transitionName="slide"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500}
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+          className="guest-list list-item-group mt-3"
+        >
+          {movies}
+        </ReactCSSTransitionGroup>
       </div>
     );
   }
