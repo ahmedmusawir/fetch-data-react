@@ -4,6 +4,7 @@ import MainNavbar from './components/general/MainNavbar';
 import NotFound from './pages/NotFound';
 import './App.scss';
 import HomePage from './pages/HomePage';
+import SinglePostPage from './pages/SinglePostPage';
 
 function App(props) {
   return (
@@ -13,6 +14,9 @@ function App(props) {
         <Switch>
           <Route exact path='/'>
             <HomePage />
+          </Route>
+          <Route exact path='/post/:id'>
+            <SinglePostPage />
           </Route>
           <Route path='/*'>
             <NotFound />

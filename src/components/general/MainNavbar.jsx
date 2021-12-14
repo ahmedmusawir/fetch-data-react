@@ -7,7 +7,7 @@ function MainNavbar(props) {
     <Navbar bg='light' expand='md'>
       <Container>
         <Navbar.Brand as={Link} to='/'>
-          React Demo 1
+          React Fetch Data
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
