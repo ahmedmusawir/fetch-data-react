@@ -1,38 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { ListGroup, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { PostsContext } from '../contexts/PostsContext';
 
 function BlogIndex() {
-  const [posts, setPosts] = useState([]);
-  const [url, setUrl] = useState('http://blockbuster.dns.army:8001/posts');
-  const [isPending, setIsPending] = useState(false);
-
-  useEffect(() => {
-    //   fetch('https://jsonplaceholder.typicode.com/posts')
-    // fetch('http://blockbuster.dns.army:8001/posts')
-    //   .then((res) => res.json())
-    //   .then((json) => setPosts(json));
-
-    const fetchData = async () => {
-      setIsPending(true);
-
-      const res = await fetch(url);
-      const json = await res.json();
-
-      setIsPending(false);
-      setPosts(json);
-    };
-
-    fetchData();
-  }, [url]);
-
+  const { posts, dispatch } = useContext(PostsContext);
   return (
     <ListGroup variant='flush'>
-      {isPending && (
+      {posts.isPending && (
         <Spinner className='mx-auto' animation='border' variant='success' />
       )}
-      {posts &&
-        posts.map((post) => (
+      {posts.data &&
+        posts.data.map((post) => (
           <Link to={`/post/${post.id}`} key={post.id}>
             <ListGroup.Item action>{post.title}</ListGroup.Item>
           </Link>

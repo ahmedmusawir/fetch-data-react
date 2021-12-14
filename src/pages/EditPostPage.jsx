@@ -1,0 +1,23 @@
+import React from 'react';
+import Page from '../components/layouts/Page';
+import { Row, Col } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import Content from '../components/layouts/Content';
+
+function EditPostPage() {
+  const { id } = useParams();
+  return (
+    <Page wide={true} pageTitle='Movie Form'>
+      <Row className='justify-content-center'>
+        <Col sm={12}>
+          <Content width='w-100' cssClassNames='bg-light'>
+            <h1>Edit Post</h1>
+            <h4>Post ID: {id}</h4>
+          </Content>
+        </Col>
+      </Row>
+    </Page>
+  );
+}
+
+export default EditPostPage;
