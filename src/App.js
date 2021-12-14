@@ -1,22 +1,28 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Guests from './components/Guests';
-import Movies from './components/Movies';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import MainNavbar from './components/general/MainNavbar';
+import NotFound from './pages/NotFound';
+import './App.scss';
+import HomePage from './pages/HomePage';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">The Movie List</h1>
-        </header>
-        <p className="App-intro pt-3">Find Your Movie for Tonight!</p>
-        <Movies />
-      </div>
-    );
-  }
+function App(props) {
+  return (
+    <BrowserRouter>
+      <MainNavbar />
+      <main>
+        <Switch>
+          <Route exact path='/'>
+            <HomePage />
+          </Route>
+          <Route path='/*'>
+            <NotFound />
+          </Route>
+        </Switch>
+      </main>
+    </BrowserRouter>
+  );
 }
+
+App.propTypes = {};
 
 export default App;
