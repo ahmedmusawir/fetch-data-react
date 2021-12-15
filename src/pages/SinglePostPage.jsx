@@ -12,7 +12,7 @@ function SinglePostPage() {
 
   let singlePost;
 
-  singlePost = _.find(state.posts, (post) => post.id === Number(id));
+  singlePost = _.find(state.posts, (post) => post.id === id);
 
   return (
     <Page wide={true} pageTitle='Movie Form'>

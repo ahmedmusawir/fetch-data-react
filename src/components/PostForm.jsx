@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import FormikControl from './formik/FormikControl';
 import * as Yup from 'yup';
+import { v4 as uuid } from 'uuid';
 import { PostsContext } from '../contexts/PostsContext';
 
 function PostForm() {
@@ -25,6 +26,7 @@ function PostForm() {
   //   FORMIK INFO
   const initialValues = {
     userId: 1,
+    id: uuid(),
     title: '',
     body: '',
   };
@@ -40,13 +42,13 @@ function PostForm() {
     dispatch({ type: 'ADD_POST', payload: singlePost });
     history.push('/');
     dispatch({ type: 'FETCH_RELOAD' });
-    // dispatch({
-    //   type: 'FETCH_SUCCESS',
-    //   payload: {
-    //     posts: state.posts,
-    //     isPending: false,
-    //   },
-    // });
+    dispatch({
+      type: 'FETCH_SUCCESS',
+      payload: {
+        posts: [...state.posts, singlePost],
+        isPending: false,
+      },
+    });
   };
   const validationSchema = Yup.object({
     title: Yup.string().required('Title is Required!'),

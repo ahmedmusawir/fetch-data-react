@@ -15,12 +15,7 @@ export const PostsReducer = (state, action) => {
       return state;
 
     case 'REMOVE_POST':
-      const newState = state.posts.filter((post) => post.id !== action.payload);
-      console.log('New State:', newState);
-      return {
-        posts: { ...newState },
-        isPending: false,
-      };
+      return state.posts.filter((post) => post.id !== action.payload);
 
     default:
       return state;

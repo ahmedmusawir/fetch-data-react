@@ -15,14 +15,14 @@ function BlogIndex() {
 
   const deletePost = (id) => {
     deleteData(id);
-    dispatch({ type: 'REMOVE_POST', payload: id });
-    // dispatch({
-    //   type: 'FETCH_SUCCESS',
-    //   payload: {
-    //     posts: state.posts,
-    //     isPending: false,
-    //   },
-    // });
+    // dispatch({ type: 'REMOVE_POST', payload: id });
+    dispatch({
+      type: 'FETCH_SUCCESS',
+      payload: {
+        posts: state.posts.filter((post) => post.id !== id),
+        isPending: false,
+      },
+    });
   };
 
   return (
