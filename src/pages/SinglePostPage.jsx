@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Page from '../components/layouts/Page';
 import { Row, Col, Spinner } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Content from '../components/layouts/Content';
 import { useParams } from 'react-router-dom';
 import { PostsContext } from '../contexts/PostsContext';
@@ -11,7 +12,6 @@ function SinglePostPage() {
   const { state } = useContext(PostsContext);
 
   let singlePost;
-
   singlePost = _.find(state.posts, (post) => post.id === id);
 
   return (
@@ -30,6 +30,13 @@ function SinglePostPage() {
               <p>{singlePost.body}</p>
             </Content>
           )}
+        </Col>
+      </Row>
+      <Row className='text-right'>
+        <Col sm={12}>
+          <Link to={`/edit-post/${id}`} className='btn btn-info'>
+            Edit Post
+          </Link>
         </Col>
       </Row>
     </Page>

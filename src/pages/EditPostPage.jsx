@@ -3,6 +3,7 @@ import Page from '../components/layouts/Page';
 import { Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Content from '../components/layouts/Content';
+import EditForm from '../components/EditForm';
 
 function EditPostPage() {
   const { id } = useParams();
@@ -13,6 +14,7 @@ function EditPostPage() {
           <Content width='w-100' cssClassNames='bg-light'>
             <h1>Edit Post</h1>
             <h4>Post ID: {id}</h4>
+            <EditForm />
           </Content>
         </Col>
       </Row>
