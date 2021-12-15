@@ -4,17 +4,45 @@ import { Link } from 'react-router-dom';
 import { PostsContext } from '../contexts/PostsContext';
 
 function BlogIndex() {
-  const { posts, dispatch } = useContext(PostsContext);
+  const { state, dispatch } = useContext(PostsContext);
+  const url = `http://blockbuster.dns.army:8001/posts/`;
+
+  const deleteData = async (id) => {
+    await fetch(`${url}${id}`, {
+      method: 'DELETE',
+    });
+  };
+
+  const deletePost = (id) => {
+    deleteData(id);
+    dispatch({ type: 'REMOVE_POST', payload: id });
+    // dispatch({
+    //   type: 'FETCH_SUCCESS',
+    //   payload: {
+    //     posts: state.posts,
+    //     isPending: false,
+    //   },
+    // });
+  };
+
   return (
     <ListGroup variant='flush'>
-      {posts.isPending && (
+      {state.isPending && (
         <Spinner className='mx-auto' animation='border' variant='success' />
       )}
-      {posts.data &&
-        posts.data.map((post) => (
-          <Link to={`/post/${post.id}`} key={post.id}>
-            <ListGroup.Item action>{post.title}</ListGroup.Item>
-          </Link>
+      {state.posts &&
+        state.posts.map((post) => (
+          <React.Fragment key={post.id}>
+            <Link to={`/post/${post.id}`}>
+              <ListGroup.Item action>{post.title}</ListGroup.Item>
+            </Link>
+            <button
+              className='btn btn-danger'
+              onClick={() => deletePost(post.id)}
+            >
+              Delete
+            </button>
+          </React.Fragment>
         ))}
     </ListGroup>
   );

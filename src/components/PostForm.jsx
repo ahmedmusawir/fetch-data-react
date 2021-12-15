@@ -1,21 +1,52 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import FormikControl from './formik/FormikControl';
 import * as Yup from 'yup';
+import { PostsContext } from '../contexts/PostsContext';
 
 function PostForm() {
+  const { state, dispatch } = useContext(PostsContext);
+  const history = useHistory();
+  const url = 'http://blockbuster.dns.army:8001/posts';
+
+  const postData = async (post) => {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(post),
+    });
+    const json = await res.json();
+  };
+
   //   FORMIK INFO
   const initialValues = {
+    userId: 1,
     title: '',
     body: '',
   };
   const onSubmit = (values, { resetForm }) => {
     console.log(values);
     resetForm({ values: initialValues });
-    // const bookObj = { id: uuid(), ...values };
-    // addBook([...data, bookObj]);
-    // dispatch({ type: 'ADD_BOOK', book: bookObj });
+
+    const singlePost = {
+      userId: 1,
+      ...values,
+    };
+    postData(singlePost);
+    dispatch({ type: 'ADD_POST', payload: singlePost });
+    history.push('/');
+    dispatch({ type: 'FETCH_RELOAD' });
+    // dispatch({
+    //   type: 'FETCH_SUCCESS',
+    //   payload: {
+    //     posts: state.posts,
+    //     isPending: false,
+    //   },
+    // });
   };
   const validationSchema = Yup.object({
     title: Yup.string().required('Title is Required!'),

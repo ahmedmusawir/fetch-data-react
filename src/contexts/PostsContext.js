@@ -8,15 +8,14 @@ function PostsContextProvider(props) {
     posts: [],
     isPending: true,
   };
-  const [url, setUrl] = useState('http://blockbuster.dns.army:8001/posts');
-  const [posts, dispatch] = useReducer(PostsReducer, initialState);
+  const [url] = useState('http://blockbuster.dns.army:8001/posts');
+  const [state, dispatch] = useReducer(PostsReducer, initialState);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(url);
       const json = await res.json();
 
-      //   dispatch({ type: 'FETCH_SUCCESS', payload: json });
       dispatch({
         type: 'FETCH_SUCCESS',
         payload: {
@@ -27,10 +26,10 @@ function PostsContextProvider(props) {
     };
 
     fetchData();
-  }, []);
+  }, [url]);
 
   return (
-    <PostsContext.Provider value={{ posts, dispatch }}>
+    <PostsContext.Provider value={{ state, dispatch }}>
       {props.children}
     </PostsContext.Provider>
   );
