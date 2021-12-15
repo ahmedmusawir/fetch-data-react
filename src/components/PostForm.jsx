@@ -41,14 +41,6 @@ function PostForm() {
     postData(singlePost);
     dispatch({ type: 'ADD_POST', payload: singlePost });
     history.push('/');
-    dispatch({ type: 'FETCH_RELOAD' });
-    dispatch({
-      type: 'FETCH_SUCCESS',
-      payload: {
-        posts: [...state.posts, singlePost],
-        isPending: false,
-      },
-    });
   };
   const validationSchema = Yup.object({
     title: Yup.string().required('Title is Required!'),

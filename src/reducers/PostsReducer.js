@@ -9,13 +9,16 @@ export const PostsReducer = (state, action) => {
       };
 
     case 'ADD_POST':
-      return [...state.posts, action.payload];
-
-    case 'FETCH_RELOAD':
-      return state;
+      return {
+        posts: [...state.posts, action.payload],
+        isPending: false,
+      };
 
     case 'REMOVE_POST':
-      return state.posts.filter((post) => post.id !== action.payload);
+      return {
+        posts: state.posts.filter((post) => post.id !== action.payload),
+        isPending: false,
+      };
 
     default:
       return state;
