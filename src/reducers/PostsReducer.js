@@ -11,13 +11,22 @@ export const PostsReducer = (state, action) => {
     case 'ADD_POST':
       return {
         posts: [...state.posts, action.payload],
-        isPending: false,
+      };
+
+    case 'EDIT_POST':
+      const newPosts = state.posts.map((post) => {
+        return post.id === action.payload.id
+          ? { ...post, ...action.payload }
+          : post;
+      });
+      console.log('NEW POSTS AFTER EDIT:', newPosts);
+      return {
+        posts: [...newPosts],
       };
 
     case 'REMOVE_POST':
       return {
         posts: state.posts.filter((post) => post.id !== action.payload),
-        isPending: false,
       };
 
     default:

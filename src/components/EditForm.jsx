@@ -12,11 +12,13 @@ function EditForm() {
   const { id } = useParams();
   const { state, dispatch } = useContext(PostsContext);
   const history = useHistory();
-  const url = 'http://blockbuster.dns.army:8001/posts';
+  const url = 'http://blockbuster.dns.army:8001/posts/' + id;
+
+  console.log(url);
 
   const postData = async (post) => {
     const res = await fetch(url, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-type': 'application/json',
       },
@@ -27,7 +29,7 @@ function EditForm() {
 
   let singlePost;
   singlePost = _.find(state.posts, (post) => post.id === id);
-  //   console.log(singlePost.title);
+  console.log('single Post', singlePost);
 
   //   FORMIK INFO
   const initialValues = {
@@ -37,15 +39,16 @@ function EditForm() {
     body: singlePost.body,
   };
   const onSubmit = (values, { resetForm }) => {
-    console.log(values);
+    console.log('ON SUBMIT', values);
     resetForm({ values: initialValues });
 
-    const singlePost = {
+    const editedSinglePost = {
       userId: 1,
       ...values,
     };
-    postData(singlePost);
-    dispatch({ type: 'ADD_POST', payload: singlePost });
+    console.log('EDITED SINGLE POST:', editedSinglePost);
+    postData(editedSinglePost);
+    dispatch({ type: 'EDIT_POST', payload: editedSinglePost });
     history.push('/');
   };
   const validationSchema = Yup.object({
