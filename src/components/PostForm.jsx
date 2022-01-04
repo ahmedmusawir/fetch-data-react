@@ -10,7 +10,7 @@ import { PostsContext } from '../contexts/PostsContext';
 function PostForm() {
   const { state, dispatch } = useContext(PostsContext);
   const history = useHistory();
-  const url = 'http://blockbuster.dns.army:8001/posts';
+  const url = 'https://jsonplaceholder.typicode.com/posts';
 
   const postData = async (post) => {
     const res = await fetch(url, {
@@ -54,15 +54,15 @@ function PostForm() {
       validationSchema={validationSchema}
     >
       {(formik) => (
-        <Form className='p-3 bg-light formik-comp'>
+        <Form className="p-3 bg-light formik-comp">
           {/* BOOK TITLE */}
-          <div className='mb-2'>
+          <div className="mb-2">
             <FormikControl
-              control='input'
-              type='text'
-              name='title'
-              label='Post Title'
-              placeholder='Title of the Post'
+              control="input"
+              type="text"
+              name="title"
+              label="Post Title"
+              placeholder="Title of the Post"
               className={
                 formik.touched.title && formik.errors.title
                   ? 'form-control is-invalid'
@@ -72,12 +72,12 @@ function PostForm() {
           </div>
 
           {/* TEXT AREA */}
-          <div className='mb-3'>
+          <div className="mb-3">
             <FormikControl
-              control='textarea'
-              name='body'
-              label='Post Content'
-              placeholder='Content'
+              control="textarea"
+              name="body"
+              label="Post Content"
+              placeholder="Content"
               rows={4}
               className={
                 formik.touched.body && formik.errors.body
@@ -86,11 +86,11 @@ function PostForm() {
               }
             />
           </div>
-          <hr className='bg-primary' />
-          <button className='btn btn-primary' type='submit'>
+          <hr className="bg-primary" />
+          <button className="btn btn-primary" type="submit">
             Submit
           </button>
-          <button className='btn btn-warning ml-1' type='reset'>
+          <button className="btn btn-warning ml-1" type="reset">
             Reset
           </button>
         </Form>

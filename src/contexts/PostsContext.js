@@ -8,7 +8,9 @@ function PostsContextProvider(props) {
     posts: [],
     isPending: true,
   };
-  const [url] = useState('http://blockbuster.dns.army:8001/posts');
+  const [url] = useState(
+    'https://jsonplaceholder.typicode.com/posts/?_limit=10'
+  );
   const [state, dispatch] = useReducer(PostsReducer, initialState);
 
   useEffect(() => {

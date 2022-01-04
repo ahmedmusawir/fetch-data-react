@@ -6,7 +6,7 @@ import { PostsContext } from '../contexts/PostsContext';
 
 function BlogIndex() {
   const { state, dispatch } = useContext(PostsContext);
-  const url = `http://blockbuster.dns.army:8001/posts/`;
+  const url = `https://jsonplaceholder.typicode.com/posts/`;
 
   const deleteData = async (id) => {
     await fetch(`${url}${id}`, {
@@ -20,14 +20,14 @@ function BlogIndex() {
   };
 
   return (
-    <ListGroup variant='flush'>
+    <ListGroup variant="flush">
       {state.isPending && (
-        <Spinner className='mx-auto' animation='border' variant='success' />
+        <Spinner className="mx-auto" animation="border" variant="success" />
       )}
       {state.posts &&
         state.posts.map((post) => (
           <React.Fragment key={post.id}>
-            <Row className='mb-2'>
+            <Row className="mb-2">
               <Col sm={10}>
                 <Link to={`/post/${post.id}`}>
                   <ListGroup.Item action>{post.title}</ListGroup.Item>
@@ -35,7 +35,7 @@ function BlogIndex() {
               </Col>
               <Col sm={2}>
                 <button
-                  className='btn btn-danger'
+                  className="btn btn-danger"
                   onClick={() => deletePost(post.id)}
                 >
                   Delete
